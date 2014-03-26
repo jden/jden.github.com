@@ -1,0 +1,65 @@
+==================================================================
+https://keybase.io/jden
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://jden.us
+  * I am jden (https://keybase.io/jden) on keybase.
+  * I have a public key with fingerprint F356 1E2B CDB8 C1C5 69A7  E364 2FBB 5706 6DD9 F68B
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "f3561e2bcdb8c1c569a7e3642fbb57066dd9f68b",
+            "host": "keybase.io",
+            "key_id": "2fbb57066dd9f68b",
+            "uid": "ff0aa7264225b896d6337f6e6f9e4400",
+            "username": "jden"
+        },
+        "service": {
+            "hostname": "jden.us",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1395866862,
+    "expire_in": 157680000,
+    "prev": "90a88299b88354d2a2d735ed5df30ef918c53ed4941caae5bedc007b43fb0304",
+    "seqno": 5,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v0.1.1
+Comment: https://keybase.io/crypto
+
+yMHlAnicbZFdSBRdHMZnSy2X7ENKoQRlkrpo2Z2dj7Mzg4W+IGF6E11VwjgfZ9zJ
+nFlnP3zXbSPKEDV7o7opX+xC9I1I7MNYitRVNApLMAi0kiwIo0wzMUV5Xc9IQRed
+m+E8/9/zPGf4D6Stx+y2bmF88tJIjLMNxT8FsSNU3nQElwwljPMRvAKufVRNL4em
+z9T0AM7jKsUANyQlWZFY2S0zgBM9kAI0qUoS4yEAUBROBayEO3Cv4bccKEYS/dCp
+GUhDF0FTkPoHPrg2UFVCFD0kSiQZieWAAijKowIIVA7SNEFYoB+aulgJEX1CgToe
+deBICWkyUiJrtb9NnUE/svhMI2DIxkkkegMBH295AmGfBVVDSfhpFyRNV9DvIkMI
+mn7N0HHejUg5oFl5bopjWABYQDpw+LdPM6GgWQTjASyBjlUDQyiSI0SWJTlOYlmK
+oRVSJBUPxUCFUVSKgCrnZmWGggrN0W5ZFCEjQUUmCI9EU6pEUASN+v2wSjdwnkHP
+FMtRpF8r18VA0IR4tD9emoTZ7FhK8jprYZg9deuvNc4NbkgY14dW4nnpztri7OHt
++3pbM/8XOeD98Y9ZeedmZ3zbAb3MJWalN1XMbjxFDmQttr6rHdydn11Smuhv7viK
+bfpeYOsaGe+YufwhPrFZvleIT3d3tjSFe7CHy2d7X2fe/6u6QZgD7TVtsebMtGjL
+heJYsLrs8433BfN80cXZHH74yl7XIzklN3LtW6mzb2ygaqlh55Y6m+vtC6/j5eiz
+2MTC6NP+J04saeFWjZlxtb2ysdB+5tj+qfyu5eiUIxGpCGWkFoQPPXckz3+5m+ia
+F3qGJxfPH1/YE8peyf2v/uDtsZnDMNS49CbngaNux+N/C3cV9dWfPvfqaGd+URv/
+0VWyCgGbGT8=
+=z0bZ
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jden
+
+==================================================================
