@@ -6,16 +6,16 @@ I hereby claim:
 
   * I am an admin of http://jden.us
   * I am jden (https://keybase.io/jden) on keybase.
-  * I have a public key with fingerprint F356 1E2B CDB8 C1C5 69A7  E364 2FBB 5706 6DD9 F68B
+  * I have a public key with fingerprint 182D 883F A244 8743 79F0  A4A8 76EF B988 A85F 7CEE
 
 To claim this, I am signing this object:
 
 {
     "body": {
         "key": {
-            "fingerprint": "f3561e2bcdb8c1c569a7e3642fbb57066dd9f68b",
+            "fingerprint": "182d883fa244874379f0a4a876efb988a85f7cee",
             "host": "keybase.io",
-            "key_id": "2fbb57066dd9f68b",
+            "key_id": "76efb988a85f7cee",
             "uid": "ff0aa7264225b896d6337f6e6f9e4400",
             "username": "jden"
         },
@@ -26,35 +26,39 @@ To claim this, I am signing this object:
         "type": "web_service_binding",
         "version": 1
     },
-    "ctime": 1395866862,
+    "ctime": 1405393187,
     "expire_in": 157680000,
-    "prev": "90a88299b88354d2a2d735ed5df30ef918c53ed4941caae5bedc007b43fb0304",
-    "seqno": 5,
+    "prev": "13ef50c495d26e2a3ab07c2c0bf22dedc9e84e0cec2d8d35d7c36df3158c6579",
+    "seqno": 20,
     "tag": "signature"
 }
 
 with the aforementioned key, yielding the PGP signature:
 
 -----BEGIN PGP MESSAGE-----
-Version: Keybase OpenPGP v0.1.1
-Comment: https://keybase.io/crypto
+Version: GnuPG v1.4.13 (MingW32)
 
-yMHlAnicbZFdSBRdHMZnSy2X7ENKoQRlkrpo2Z2dj7Mzg4W+IGF6E11VwjgfZ9zJ
-nFlnP3zXbSPKEDV7o7opX+xC9I1I7MNYitRVNApLMAi0kiwIo0wzMUV5Xc9IQRed
-m+E8/9/zPGf4D6Stx+y2bmF88tJIjLMNxT8FsSNU3nQElwwljPMRvAKufVRNL4em
-z9T0AM7jKsUANyQlWZFY2S0zgBM9kAI0qUoS4yEAUBROBayEO3Cv4bccKEYS/dCp
-GUhDF0FTkPoHPrg2UFVCFD0kSiQZieWAAijKowIIVA7SNEFYoB+aulgJEX1CgToe
-deBICWkyUiJrtb9NnUE/svhMI2DIxkkkegMBH295AmGfBVVDSfhpFyRNV9DvIkMI
-mn7N0HHejUg5oFl5bopjWABYQDpw+LdPM6GgWQTjASyBjlUDQyiSI0SWJTlOYlmK
-oRVSJBUPxUCFUVSKgCrnZmWGggrN0W5ZFCEjQUUmCI9EU6pEUASN+v2wSjdwnkHP
-FMtRpF8r18VA0IR4tD9emoTZ7FhK8jprYZg9deuvNc4NbkgY14dW4nnpztri7OHt
-+3pbM/8XOeD98Y9ZeedmZ3zbAb3MJWalN1XMbjxFDmQttr6rHdydn11Smuhv7viK
-bfpeYOsaGe+YufwhPrFZvleIT3d3tjSFe7CHy2d7X2fe/6u6QZgD7TVtsebMtGjL
-heJYsLrs8433BfN80cXZHH74yl7XIzklN3LtW6mzb2ygaqlh55Y6m+vtC6/j5eiz
-2MTC6NP+J04saeFWjZlxtb2ysdB+5tj+qfyu5eiUIxGpCGWkFoQPPXckz3+5m+ia
-F3qGJxfPH1/YE8peyf2v/uDtsZnDMNS49CbngaNux+N/C3cV9dWfPvfqaGd+URv/
-0VWyCgGbGT8=
-=z0bZ
+owGbwMvMwMRY9n5nx4r4mneMpw+8SmIIPjIzpFopKT+lUsmqWik7FUylZealpxYV
+FGXmlShZKRlaGKVYWBinJRqZmFiYmxibW6YZJJokWpibpaYlWVpYJFqYppknp6Yq
+6Shl5BeDdACNSUosTtXLzAeKATnxmSlAUSzqS8ESaUDzEs2NzEyMjEyTLCzNUsyM
+jc3TzFLN0ixTTUwMDEAKi1OL8hJzU4Gqs1JS85RqdZSAImWZyakg94KsRZLVKy0G
+aikoyi/JT87PAQpmlJQUWIH0lFQWgBSVpybFQ7XHJ2XmpQC9C9RQllpUnJmfp2Rl
+CFSZXJIJMs/QxMDU2NLY0MJcRym1oiCzKDU+E6TC1NzMwgAIQNakloECyTg1zdQg
+2cTSNMXILNUo0TgxycA82SjZICnNyCglNSXZMtXCJNUgOTUZGJgpxqYp5snGZilp
+xoamFslmpuaWSiAPFeblK1kZAQ0tSUwHmlmcmZ6XWFJalKpUy9XJJMPCwMjEwMbK
+BIoyBi5OAVhEHr8mwLBgQcGuHzd3Hq95EV5zsoTTrmLlTp2rWQkyr65HLsqe/OB8
+/y+rw/aVxg8PBKZ/Xiaww1Zv2epZy5WD5GzWFa4Xemxyc/61RTVsSUx9LlYTUiNO
+3Igo2RPRNX++T99PtWPqXZnNm7vvyf6awXHxWcoFN78Ggc6YrauZG7VSd74W8MiR
+vB0388SMydslDxyx3nr73nFdy1Xijpu/n77Df5xjiem0F5yp6uuEmrL/rDr+Nfvm
+lm0JMvGCXj1+p5/6LPSe8un/XhUz1h0X5M7/2V1tYZ9UllDtHrzyw109t2umBxcu
+rZusnR95iP/Alw/75l1mXPD7ziLu9ZdOsb6pKi+M3nrqZcU70bB7Mw8kPK9smT5v
+0kxO1esCjWa6lZ8TF/lEvT+jk2o/3Snz75+9imzzbop4yCs2zFa7WbXqV7Td1bnd
+G54tLBJmPb198RIv+Z+nfMpTv8SKbJR5UPy+ySomp+HS+qCzkRN0fm6a2LrNg1Pc
+Oq5uh9WGRvag5eplwrdWsvacVLttVi8ssbQ469zZXoEfWmFHH8a+XrX6wNOmb0Kz
+vB2O3Oy0U0j9Nyn/m4nT57eFa1d2tB290/owSpjTZwbLrXspRqsyCn9XfXIxWJxX
+4ruR45t2+/mIuW4mtxWTlVw0+jcarSqLnTKN3//vxymSV79ObsjetMHZ9VLMHSWP
+HTx/ZVd6RwuIfU1/unC30wvP8g1np4c0nQ/nBgA=
+=Oz1h
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or
