@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(http://fonts.gstatic.com/s/opensans/v10/DXI1ORHCpsQm3Vp6mXoaTegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(http://fonts.gstatic.com/s/opensans/v10/EInbV5DfGHOiMmvb1Xr-hugdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  background: white;
+  color: #bababa;
+  margin: 20px 40px;
+}
+a{
+  color: #9dc3c3;
+  text-decoration: none;
+}
+a:hover, a:active{
+  text-decoration: underline;
+}
+.contact{
+  text-align: right;
+  margin-right: 50px;
+}
+.contact a{
+  text-decoration: none;
+}
+.contact a[rel~="gpgkey"]{
+  display:block;
+}
+.main{
+  text-align: center;
+}
+h1{
+  font-size: 50px;
+  font-weight: 800;
+  color: #5c6b6b;
+  margin-bottom: 1em; 
+}
+ul{
+  padding: 0;
+}
+ul li{
+  list-style: none;
+  font-size: 24px;
+}
+address{
+  text-align: center;
+  font-style: normal;
+  margin: 100px 0;
+}
+address span{
+  font-variant: small-caps;
+  font-size: 80%;
+}
