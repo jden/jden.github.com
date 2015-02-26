@@ -38,6 +38,9 @@ a:hover, a:active{
 .main{
   text-align: center;
 }
+#cover{
+  padding: 20px;
+}
 h1{
   font-size: 50px;
   font-weight: 800;
@@ -53,7 +56,7 @@ ul li{
 }
 #newsletter{
   font-size: 24px;
-  background: #fafafa;
+  background: #f0f0f0;
   margin: 2em 1em 0;
   padding: 1em;
 }

@@ -15,7 +15,8 @@
   </div>
 
   <div class="main">
-    <img src="images/me3.png" />
+
+    <a id="cover-link"><img id="cover" /></a>
     <h1>i am a starter</h1>
 
 
@@ -43,5 +44,27 @@ get banal everyday thoughts and pictures of what i'm up to sent to your email ad
 
   </div>
   <address><span>MMXV</span>. copyright is theft from the commons</address>
+  <script>
+  function jsonFlickrApi(data) {
+    var img = random(data.photos.photo)
+    img.url = 'https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_z.jpg'
+                    .replace('{farm-id}', img.farm)
+                    .replace('{server-id}', img.server)
+                    .replace('{id}', img.id)
+                    .replace('{secret}', img.secret)
+    var el = document.getElementById('cover')
+    el.src = img.url 
+    el.title = img.title
+    var href = 'https://www.flickr.com/photos/{user-id}/{photo-id}'
+                .replace('{user-id}', img.owner)
+                .replace('{photo-id}', img.id)
+    document.getElementById('cover-link').setAttribute('href', href)
+  }
+  function random(arr) {
+    var i = Math.floor(Math.random()*arr.length)
+    return arr[i]
+  }
+  </script>
+  <script src="https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=5715ab69fe9c013d3baad2ccfc1328c3&user_id=39811350%40N00&per_page=3&format=json"></script>
 </body>
 </html>
