@@ -3,3 +3,6 @@ deployment:
       branch: master
       commands:
         - git push git@git.jden.net:jden.us $CIRCLE_SHA1:master
+test:
+  override:
+    - echo 'ok!'
