@@ -1,0 +1,45 @@
+<head>
+<title>soma</title>
+<style>
+body{
+  background-image: url('https://jden.us/soma-heights.jpg');
+  background-position: top 50%;
+  background-size: cover;
+}
+div{
+  background-image: url('https://jden.us/soma-heights.jpg');
+  background-position: top 50%;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+}
+.on {
+  opacity: 1;
+  -webkit-transition: all 3s ease;
+  -moz-transition: all 3s ease;
+  -ms-transition: all 3s ease;
+  -o-transition: all 3s ease;
+  transition: all 3s ease;
+}
+</style>
+
+<script>
+function push() {
+  var div = document.createElement('div')
+  div.style.backgroundImage = 'url(https://jden.us/soma-heights.jpg?' + Date.now() + ')'
+  document.body.appendChild(div)
+  div.className = 'on'
+  if (document.body.children.length > 3) {
+    document.body.removeChild(document.body.children[0])
+  }
+}
+
+setTimeout(push,0)
+setInterval(push, 3000)
+</script>
+</head>
+<body></body>
