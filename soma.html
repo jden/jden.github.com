@@ -2,11 +2,11 @@
 <title>soma</title>
 <style>
 body{
-  background-image: url('https://jden.us/soma-heights.jpg');
+  /*background-image: url('https://jden.us/soma-heights.jpg');*/
   background-position: top 50%;
   background-size: cover;
 }
-div{
+#cam div{
   background-image: url('https://jden.us/soma-heights.jpg');
   background-position: top 50%;
   background-size: cover;
@@ -17,7 +17,7 @@ div{
   right: 0;
   opacity: 0;
 }
-.on {
+#cam div.on {
   opacity: 1;
   -webkit-transition: all 3s ease;
   -moz-transition: all 3s ease;
@@ -25,21 +25,38 @@ div{
   -o-transition: all 3s ease;
   transition: all 3s ease;
 }
+#temp {
+  text-shadow: 1px 1px 1px black;
+  font-size: 92px;
+  font-family: "segoe ui", sans-serif;
+  color: white;
+  position: absolute;
+  margin: 0 20px;
+}
 </style>
-
+</head>
+<body>
+<div id="cam"></div>
+<div id="temp"></div>
+</body>
 <script>
+var container = document.getElementById('cam')
 function push() {
   var div = document.createElement('div')
   div.style.backgroundImage = 'url(https://jden.us/soma-heights.jpg?' + Date.now() + ')'
-  document.body.appendChild(div)
+  container.appendChild(div)
   div.className = 'on'
-  if (document.body.children.length > 3) {
-    document.body.removeChild(document.body.children[0])
+  if (container.children.length > 3) {
+    container.removeChild(container.children[0])
   }
 }
 
-setTimeout(push,0)
 setInterval(push, 3000)
+push()
+
+function weather(data) {
+  var temp = Math.round(data.currently.temperature)
+  document.getElementById('temp').textContent = temp + '°'
+}
 </script>
-</head>
-<body></body>
+<script src="https://api.forecast.io/forecast/27f7e11f1ef2edcce56d77c5b17a212c/37.7766,-122.4174?callback=weather"></script>
