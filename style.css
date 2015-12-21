@@ -14,7 +14,7 @@
 body {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
-  background: white;
+  background: #131313;
   color: #bababa;
   margin: 20px 40px;
 }
@@ -44,7 +44,7 @@ a:hover, a:active{
 h1{
   font-size: 50px;
   font-weight: 800;
-  color: #5c6b6b;
+  color: #0ff;
   margin-bottom: 1em; 
 }
 ul{
