@@ -13,10 +13,7 @@
   </div>
 
   <div class="main">
-
-    <a id="cover-link"><img id="cover" /></a>
     <h1>* based on a true story</sup></h1>
-
 
     <ul class="primary">
       <li><a href="https://github.com/jden">things i make</a></li>
@@ -25,7 +22,7 @@
       <li><a href="/speaking">speaking</a></li>
     </ul>
     <ul class="secondary">
-      <li><a rel="me" href="https://twitter.com/jdenpublic">twitter</a></li>
+      <li><a rel="me" href="https://twitter.com/jden415">twitter</a></li>
       <li><a rel="me" href="https://www.flickr.com/photos/jaso">photos</a></li>
       <li><a rel="me" href="https://instagram.com/jden415">snapshots</a></li>
       <li><a rel="me" href="https://www.goodreads.com/user/show/1697124-jason">books</a></li>
@@ -37,17 +34,15 @@
 
   <address><span>MMXVI</span>. copyright is theft from the commons</address>
   <script>
-  function jsonFlickrFeed(data) {
+  function jsonFlickrFeed (data) {
     var img = random(data.items)
 
     var el = document.getElementById('cover')
-    el.src = img.media.m.replace('_m.jpg', '_z.jpg')
-    el.title = img.title
-    var href = img.link
-    document.getElementById('cover-link').setAttribute('href', href)
+    document.body.style.backgroundImage = 
+      'url(' + img.media.m.replace('_m.jpg', '_z.jpg') + ')'
   }
-  function random(arr) {
-    var i = Math.floor(Math.random()*arr.length)
+  function random (arr) {
+    var i = Math.floor(Math.random() * arr.length)
     return arr[i]
   }
   </script>

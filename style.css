@@ -4,10 +4,14 @@ body {
   background: #131313;
   color: #bababa;
   margin: 20px 40px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
 }
 a{
   color: #9dc3c3;
   text-decoration: none;
+  text-shadow: 0 0 10px black;
 }
 a:hover, a:active{
   text-decoration: underline;
@@ -32,7 +36,8 @@ h1{
   font-size: 50px;
   font-weight: 800;
   color: #FF2F00;
-  margin-bottom: 1em; 
+  margin-bottom: 1em;
+  text-shadow: 0 0 10px black;
 }
 ul{
   padding: 0;
@@ -60,6 +65,7 @@ address{
   text-align: center;
   font-style: normal;
   margin: 100px 0;
+  text-shadow: 0 0 10px black;
 }
 address span{
   font-variant: small-caps;
