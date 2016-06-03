@@ -39,6 +39,368 @@
     return arr[i]
   }
   </script>
-  <script src="https://api.flickr.com/services/feeds/photos_public.gne?id=39811350%40N00&lang=en-en&format=json"></script>
+  <!-- <script src="https://api.flickr.com/services/feeds/photos_public.gne?id=39811350%40N00&lang=en-en&format=json"></script> -->
+  <script>
+/* globals history */
+// we gotta have some leftpad, code via https://github.com/stevemao/left-pad/blob/master/index.js
+
+function leftPad (str, len, ch = ' ') {
+  // convert `str` to `string`
+  str = str + ''
+
+  // doesn't need to pad
+  len = len - str.length
+  if (len <= 0) return str
+
+  // convert `ch` to `string`
+  ch = String(ch)
+  var pad = ''
+  while (true) {
+    if (len & 1) pad += ch
+    len >>= 1
+    if (len) ch += ch
+    else break
+  }
+  return pad + str
+}
+
+try {
+!(_ => {
+  // Game Config ===============================================================
+  const FPS = 14
+  const BLANK = '_'
+  const STARTING_POSITION = 4
+  const BOARD_SIZE = 50
+
+  // Game Framework ============================================================
+
+  // (input : Array | Any) => void
+  function draw (input) {
+    let str = Array.isArray(input) ? input.join('') : String(input)
+    str = str.replace(/ /g, BLANK)
+    history.replaceState(null, '', `#${str}`)
+  }
+
+  function createGame (reducers = [], defaultState) {
+    let state = Object.assign({}, defaultState)
+
+    function effect (msg) {
+      state = reducers.reduce((state, reducer) => reducer(state, msg, effect) || state, state)
+    }
+
+    return effect
+  }
+
+  function debugReducer (state, msg) {
+    window.state = state
+    if (!msg.tick) {
+      console.log('effect:', msg, 'at frame', state.frame)
+    }
+  }
+
+  function ticker (fps, effect) {
+    return setInterval(() => {
+      effect({tick: 1})
+    }, Math.floor(1000 / fps))
+  }
+
+  // Game Test Framework =======================================================
+
+  function story (name, proof) {
+    try {
+      proof()
+    } catch (e) {
+      console.log(`🚒 Story: ${name}`)
+      console.log('\t', e)
+    }
+  }
+
+  function stories (obj) {
+    Object.keys(obj).forEach((name) => {
+      story(name, obj[name])
+    })
+  }
+
+  function assert (ok, message) {
+    if (!ok) {
+      throw new Error(`Assert failed: ${message} ${ok}`)
+    }
+  }
+
+  assert.equal = function (a, b) {
+    assert(a === b, `expected ${a} to equal ${b}`)
+  }
+
+  function noop () {}
+
+  // Game Art ==================================================================
+  const art = new Map()
+
+  art.set('pacmoji', {
+    normal: ['😮', '😮', '😦', '😦'],
+    poweringUp: ['😜'],
+    poweredUp: ['😛', '😬'],
+    dead: ['😩']
+  })
+
+  art.set('ghost', {
+    normal: ['👻']
+  })
+
+  function renderPacmoji (me, frame = 0) {
+    const key = 'pacmoji'
+    const frames = art.get(key)[me.mode]
+    return frames[frame % frames.length]
+  }
+
+  function renderGhost (ghost, frame = 0) {
+    const key = 'ghost'
+    const frames = art.get(key)['normal']
+    return frames[frame % frames.length]
+  }
+
+  function renderGame (state) {
+    // address bar is not monospaced, so each emoji space is 2 underscores
+    const board = 'x'.repeat(BOARD_SIZE).split('')
+      .map((x) => BLANK.repeat(2))
+
+    const pacmoji = renderPacmoji(state.me, state.frame)
+
+    const score = leftPad(state.score, 5).split('')
+
+    board[state.ghost.position] = renderGhost({}, state.frame)
+
+    board[state.me.position] = pacmoji
+
+    return [].concat(
+      score, ' ||', board, '||', BLANK.repeat(1000)
+      )
+  }
+
+  // Game Logic ================================================================
+
+  let reducers = []
+  reducers.push(debugReducer)
+  reducers.push(function drawGame (state, msg) {
+    if (msg.tick) {
+      draw(renderGame(state))
+    }
+  })
+
+  reducers.push(function tickFrame (state, msg) {
+    if (msg.tick) {
+      state.frame += msg.tick
+    }
+  })
+
+  function moveLeft (state, msg, effect) {
+    if (msg.keydown === 'ArrowLeft' && state.me.mode !== 'dead') {
+      let newPosition = (state.me.position - 1) % BOARD_SIZE
+      if (newPosition < 0) {
+        newPosition = newPosition + BOARD_SIZE
+      }
+      state.me.position = newPosition
+      effect({checkCollision: true})
+    }
+    return state
+  }
+  reducers.push(moveLeft)
+
+  function moveRight (state, msg, effect) {
+    if (msg.keydown === 'ArrowRight' && state.me.mode !== 'dead') {
+      state.me.position = (state.me.position + 1) % BOARD_SIZE
+      effect({checkCollision: true})
+    }
+    return state
+  }
+  reducers.push(moveRight)
+
+  stories({
+    'you cant move when youre dead': () => {
+      assert.equal(
+        moveRight(
+          {
+            me: {
+              mode: 'dead',
+              position: 10
+            }
+          },
+          {
+            keydown: 'ArrowRight'
+          }
+        ).me.position, 10)
+    },
+    'movement wraps around the board': () => {
+      assert.equal(
+        moveRight(
+          {
+            me: {
+              position: BOARD_SIZE - 1
+            }
+          },
+          {
+            keydown: 'ArrowRight'
+          },
+          noop
+        ).me.position, 0)
+      assert.equal(
+        moveLeft(
+          {
+            me: {
+              position: 0
+            }
+          },
+          {
+            keydown: 'ArrowLeft'
+          },
+          noop
+        ).me.position, BOARD_SIZE - 1)
+    }
+  })
+
+  reducers.push(function checkCollision (state, msg, effect) {
+    if (msg.checkCollision) {
+      if (state.me.position === state.ghost.position && state.me.mode !== 'dead') {
+        effect({die: true})
+      }
+    }
+  })
+
+  reducers.push(function die (state, msg, effect) {
+    if (msg.die) {
+      effect({score: -100})
+      state.me.mode = 'dead'
+      // todo: some kinda frame-based timeout thingy
+      setTimeout(() => {
+        effect({respawn: true})
+      }, 1000)
+    }
+  })
+
+  reducers.push(function reswpan (state, msg, effect) {
+    if (msg.respawn) {
+      state.me.mode = 'normal'
+      state.me.position = STARTING_POSITION
+    }
+  })
+
+  function ghostChase (state, msg, effect) {
+    if (msg.tick && state.frame % 10 === 0) {
+      const me = state.me.position
+      const right = (state.ghost.position + 1) % BOARD_SIZE
+      let left = (state.ghost.position - 1) % BOARD_SIZE
+      if (left < 0) {
+        left = left + BOARD_SIZE
+      }
+      if (wrappedDistance(me, right, BOARD_SIZE) < wrappedDistance(me, left, BOARD_SIZE)) {
+        effect({ghostMoveRight: true})
+      } else {
+        effect({ghostMoveLeft: true})
+      }
+    }
+  }
+  reducers.push(ghostChase)
+
+  function ghostMoveLeft (state, msg, effect) {
+    if (msg.ghostMoveLeft) {
+      let newPosition = (state.ghost.position - 1) % BOARD_SIZE
+      if (newPosition < 0) {
+        newPosition = newPosition + BOARD_SIZE
+      }
+      state.ghost.position = newPosition
+      effect({checkCollision: true})
+    }
+    return state
+  }
+  reducers.push(ghostMoveLeft)
+
+  function ghostMoveRight (state, msg, effect) {
+    if (msg.ghostMoveRight) {
+      state.ghost.position = (state.ghost.position + 1) % BOARD_SIZE
+      effect({checkCollision: true})
+    }
+    return state
+  }
+  reducers.push(ghostMoveRight)
+
+  function wrappedDistance (a, b, mod) {
+
+    return Math.min(Math.abs(b - a + mod), Math.abs(a - b + mod), Math.abs(a - b), Math.abs(b - a))
+  }
+
+  story('wrappedDistance', () => {
+    assert.equal(wrappedDistance(0, 10, 100), 10)
+    assert.equal(wrappedDistance(10, 0, 100), 10)
+    assert.equal(wrappedDistance(0, 90, 100), 10)
+    assert.equal(wrappedDistance(90, 0, 100), 10)
+  })
+
+  function updateScore (state, msg) {
+    if (msg.score) {
+      state.score = Math.max(Math.min(state.score + msg.score, 999), -999)
+    }
+    return state
+  }
+  reducers.push(updateScore)
+
+  stories({
+    'score is added': () => {
+      assert.equal(
+        updateScore({score: 50}, {score: 100}).score,
+        150
+      )
+    },
+    'score is capped at 999': () => {
+      assert.equal(
+        updateScore({score: 950}, {score: 100}).score,
+        999
+      )
+    },
+    'score bottoms out at -999': () => {
+      assert.equal(
+        updateScore({score: -980}, {score: -100}).score,
+        -999
+      )
+    }
+  })
+
+  // Game Instance =============================================================
+
+  const pacgame = createGame(reducers, {
+    frame: 0,
+    me: {
+      mode: 'normal',
+      position: STARTING_POSITION
+    },
+    ghost: {
+      mode: 'normal',
+      position: Math.round(BOARD_SIZE / 2)
+    },
+    score: 0
+  })
+
+  // Game Inputs ===============================================================
+  // Keyboard
+  document.body.addEventListener('keydown', (e) => {
+    pacgame({keydown: e.code})
+  })
+
+  // Time
+  ticker(FPS, pacgame)
+
+  // Let the people know they can play! ========================================
+  const OG_TITLE = document.title
+
+  document.title = 'use L and R to play ↘️'
+  setTimeout(() => {
+    document.title = OG_TITLE
+  }, 5000)
+
+})()
+} catch (e) {
+  // sorry old browser user :(
+  console.error(e)
+}
+  </script>
 </body>
 </html>
