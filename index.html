@@ -30,8 +30,7 @@
   function jsonFlickrFeed (data) {
     var img = random(data.items)
 
-    var el = document.getElementById('cover')
-    document.body.style.backgroundImage = 
+    document.body.style.backgroundImage =
       'url(' + img.media.m.replace('_m.jpg', '_z.jpg') + ')'
   }
   function random (arr) {
@@ -39,7 +38,7 @@
     return arr[i]
   }
   </script>
-  <!-- <script src="https://api.flickr.com/services/feeds/photos_public.gne?id=39811350%40N00&lang=en-en&format=json"></script> -->
+  <script src="https://api.flickr.com/services/feeds/photos_public.gne?id=39811350%40N00&lang=en-en&format=json"></script>
   <script>
 /* globals history */
 // we gotta have some leftpad, code via https://github.com/stevemao/left-pad/blob/master/index.js
