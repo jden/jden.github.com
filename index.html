@@ -147,6 +147,15 @@ try {
     normal: ['👻']
   })
 
+  art.set('fruit', {
+    strawberry: ['🍓'],
+    cherries: ['🍒'],
+    orange: ['🍊'],
+    pear: ['🍐'],
+    watermelon: ['🍉'],
+    chomped: ['💯']
+  })
+
   function renderPacmoji (me, frame = 0) {
     const key = 'pacmoji'
     const frames = art.get(key)[me.mode]
@@ -156,6 +165,12 @@ try {
   function renderGhost (ghost, frame = 0) {
     const key = 'ghost'
     const frames = art.get(key)['normal']
+    return frames[frame % frames.length]
+  }
+
+  function renderFruit (fruit, frame = 0) {
+    const key = 'fruit'
+    const frames = art.get(key)[fruit.mode]
     return frames[frame % frames.length]
   }
 
@@ -171,6 +186,10 @@ try {
     board[state.ghost.position] = renderGhost({}, state.frame)
 
     board[state.me.position] = pacmoji
+
+    if (state.fruit) {
+      board[state.fruit.position] = renderFruit(state.fruit, state.frame)
+    }
 
     return [].concat(
       score, ' ||', board, '||', BLANK.repeat(1000)
@@ -262,6 +281,8 @@ try {
     if (msg.checkCollision) {
       if (state.me.position === state.ghost.position && state.me.mode !== 'dead') {
         effect({die: true})
+      } else if (state.fruit && state.me.position === state.fruit.position && state.fruit.mode !== 'chomped') {
+        effect({eat: true})
       }
     }
   })
@@ -281,6 +302,16 @@ try {
     if (msg.respawn) {
       state.me.mode = 'normal'
       state.me.position = STARTING_POSITION
+    }
+  })
+
+  reducers.push(function eat (state, msg, effect) {
+    if (msg.eat) {
+      state.fruit.mode = 'chomped'
+      effect({score: 100})
+      setTimeout(() => {
+        state.fruit = null
+      }, 1000)
     }
   })
 
@@ -324,7 +355,6 @@ try {
   reducers.push(ghostMoveRight)
 
   function wrappedDistance (a, b, mod) {
-
     return Math.min(Math.abs(b - a + mod), Math.abs(a - b + mod), Math.abs(a - b), Math.abs(b - a))
   }
 
@@ -361,6 +391,38 @@ try {
         updateScore({score: -980}, {score: -100}).score,
         -999
       )
+    }
+  })
+
+  reducers.push(function randomSpawnFruit (state, msg, effect) {
+    if (msg.tick && !state.fruit && (state.frame % FPS) === (FPS - 1)) {
+
+      if (Math.random() > 0.6) {
+        const seed = Math.random()
+        effect({spawnFruit: seed})
+      }
+    }
+  })
+
+  reducers.push(function spawnFruit (state, msg, effect) {
+    if (msg.spawnFruit) {
+      const seed = msg.spawnFruit
+      const position = Math.floor(Math.random() * BOARD_SIZE)
+      const fruit = {position}
+
+      if (seed > 0.8) {
+        fruit.mode = 'strawberry'
+      } else if (seed > 0.6) {
+        fruit.mode = 'cherries'
+      } else if (seed > 0.4) {
+        fruit.mode = 'orange'
+      } else if (seed > 0.2) {
+        fruit.mode = 'pear'
+      } else {
+        fruit.mode = 'watermelon'
+      }
+
+      state.fruit = fruit
     }
   })
 
