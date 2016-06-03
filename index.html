@@ -201,11 +201,7 @@ try {
 
   function moveLeft (state, msg, effect) {
     if (msg.keydown === 'ArrowLeft' && state.me.mode !== 'dead') {
-      let newPosition = (state.me.position - 1) % BOARD_SIZE
-      if (newPosition < 0) {
-        newPosition = newPosition + BOARD_SIZE
-      }
-      state.me.position = newPosition
+      state.me.position = wrappedAdd(state.me.position, -1)
       effect({checkCollision: true})
     }
     return state
@@ -214,7 +210,7 @@ try {
 
   function moveRight (state, msg, effect) {
     if (msg.keydown === 'ArrowRight' && state.me.mode !== 'dead') {
-      state.me.position = (state.me.position + 1) % BOARD_SIZE
+      state.me.position = wrappedAdd(state.me.position, 1)
       effect({checkCollision: true})
     }
     return state
@@ -310,22 +306,20 @@ try {
       if (left < 0) {
         left = left + BOARD_SIZE
       }
-      if (wrappedDistance(me, right, BOARD_SIZE) < wrappedDistance(me, left, BOARD_SIZE)) {
-        effect({ghostMoveRight: true})
-      } else {
-        effect({ghostMoveLeft: true})
-      }
+      const leftDistance = wrappedDistance(me, left, BOARD_SIZE)
+      const rightDistance = wrappedDistance(me, right, BOARD_SIZE)
+
+      effect({
+        ghostMoveLeft: leftDistance < rightDistance,
+        ghostMoveRight: rightDistance < leftDistance
+      })
     }
   }
   reducers.push(ghostChase)
 
   function ghostMoveLeft (state, msg, effect) {
     if (msg.ghostMoveLeft) {
-      let newPosition = (state.ghost.position - 1) % BOARD_SIZE
-      if (newPosition < 0) {
-        newPosition = newPosition + BOARD_SIZE
-      }
-      state.ghost.position = newPosition
+      state.ghost.position = wrappedAdd(state.ghost.position, -1)
       effect({checkCollision: true})
     }
     return state
@@ -334,22 +328,39 @@ try {
 
   function ghostMoveRight (state, msg, effect) {
     if (msg.ghostMoveRight) {
-      state.ghost.position = (state.ghost.position + 1) % BOARD_SIZE
+      state.ghost.position = wrappedAdd(state.ghost.position, 1)
       effect({checkCollision: true})
     }
     return state
   }
   reducers.push(ghostMoveRight)
 
-  function wrappedDistance (a, b, mod) {
-    return Math.min(Math.abs(b - a + mod), Math.abs(a - b + mod), Math.abs(a - b), Math.abs(b - a))
+  function wrappedDistance (a, b, mod = BOARD_SIZE) {
+    return Math.min(
+      Math.abs(b - a + mod),
+      Math.abs(a - b + mod),
+      Math.abs(a - b),
+      Math.abs(b - a))
   }
-
   story('wrappedDistance', () => {
     assert.equal(wrappedDistance(0, 10, 100), 10)
     assert.equal(wrappedDistance(10, 0, 100), 10)
     assert.equal(wrappedDistance(0, 90, 100), 10)
     assert.equal(wrappedDistance(90, 0, 100), 10)
+  })
+
+  function wrappedAdd (a, b, mod = BOARD_SIZE) {
+    let sum = (a + b) % mod
+    if (sum < 0) {
+      sum = sum + mod
+    }
+    return sum
+  }
+  story('wrappedAdd', () => {
+    assert.equal(wrappedAdd(0, 10, 100), 10)
+    assert.equal(wrappedAdd(95, 10, 100), 5)
+    assert.equal(wrappedAdd(95, -5, 100), 90)
+    assert.equal(wrappedAdd(0, -5, 100), 95)
   })
 
   function updateScore (state, msg) {
