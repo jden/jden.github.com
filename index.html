@@ -156,21 +156,8 @@ try {
     chomped: ['💯']
   })
 
-  function renderPacmoji (me, frame = 0) {
-    const key = 'pacmoji'
-    const frames = art.get(key)[me.mode]
-    return frames[frame % frames.length]
-  }
-
-  function renderGhost (ghost, frame = 0) {
-    const key = 'ghost'
-    const frames = art.get(key)['normal']
-    return frames[frame % frames.length]
-  }
-
-  function renderFruit (fruit, frame = 0) {
-    const key = 'fruit'
-    const frames = art.get(key)[fruit.mode]
+  function renderSprite (key, {mode} = 'normal', frame = 0) {
+    const frames = art.get(key)[mode]
     return frames[frame % frames.length]
   }
 
@@ -179,16 +166,16 @@ try {
     const board = 'x'.repeat(BOARD_SIZE).split('')
       .map((x) => BLANK.repeat(2))
 
-    const pacmoji = renderPacmoji(state.me, state.frame)
+    const pacmoji = renderSprite('pacmoji', state.me, state.frame)
 
     const score = leftPad(state.score, 5).split('')
 
-    board[state.ghost.position] = renderGhost({}, state.frame)
+    board[state.ghost.position] = renderSprite('ghost', state.ghost, state.frame)
 
     board[state.me.position] = pacmoji
 
     if (state.fruit) {
-      board[state.fruit.position] = renderFruit(state.fruit, state.frame)
+      board[state.fruit.position] = renderSprite('fruit', state.fruit, state.frame)
     }
 
     return [].concat(
